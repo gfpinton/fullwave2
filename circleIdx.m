@@ -2,8 +2,9 @@ function [idx]=circleIdx(dims,cen,rad)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % GIANMARCO PINTON
 % WRITTEN: NOV 13, 2013
-% LAST MODIFIED: NOV 13, 2013
-% find indices of a 2D circle 
+% LAST MODIFIED: MAY 4, 2019
+% find indices of a 2D circle
+% do not go out of bounds
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 idx=zeros(1,ceil(2*rad+1)^2); cc=1;
@@ -21,3 +22,5 @@ else
   Disp('ERROR! length(dim)~=2!!')
 end
 idx=idx(1:cc-1);
+idx=idx(find(idx>0));
+idx=idx(find(idx<=dims(1)*dims(2)));
