@@ -56,14 +56,14 @@ theta=atan2(incoords(:,2)-cen(2),incoords(:,1)-cen(1));
 Dtheta=max(theta)-min(theta);
 for tt=1:128
     idtheta=find(theta<=max(theta)-Dtheta*(tt-1)/128 & theta>max(theta)-Dtheta*(tt)/128);
-    plot(incoords(:,1),incoords(:,2),'.'), hold on
-    plot(incoords(idtheta,1),incoords(idtheta,2),'r.'); hold off, drawnow
+    %plot(incoords(:,1),incoords(:,2),'.'), hold on
+    %plot(incoords(idtheta,1),incoords(idtheta,2),'r.'); hold off, drawnow
     incoords(idtheta,3)=tt;
 end
 
 
 
-foc2=10e-2;
+foc2=10e-2; foc=foc2/dY;
 
 focs=0;
 Dtheta=30*pi/180/(128-1);
@@ -112,7 +112,7 @@ materials
 rho0=1000;
 A0 = 3/(20/log(10));
 N0 = -tissue.beta/(rho0*c0^4);
-fnumber=foc/nY;
+fnumber=foc2/nY;
 beamwidth=round(lambda*fnumber/dY);
 nlines=1;
 [m.c m.rho m.A m.beta] = img2fieldFlatten2('r102gh.tif',dX,dY);
@@ -225,7 +225,9 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% LAUNCH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  ncoordsout=size(outcoords,1);
+
+if(0) % the interior of this if statement will run executable
+ncoordsout=size(outcoords,1);
  
 for tt=1:11
     tt
@@ -259,5 +261,6 @@ outdir=['fa/fa_' num2str(tt)];
 nRun=sizeOfFile([outdir '/genout.dat'])/4/ncoordsout
 pxducer=readGenoutSlice([outdir '/genout.dat'],0:nRun-2,size(outcoords,1));
 imagesc(powcompress(pxducer,1/4))
- 
+
+end
 % save fullwave_launcher_workspace
