@@ -87,7 +87,7 @@ for n=1:nlines
 
   
   c=imgaussfilt(c,1*ppw/12);
-  rho=imgaussfilt(c,1*ppw/12);
+  rho=imgaussfilt(rho,1*ppw/12);
   A=imgaussfilt(A,1*ppw/12);
   beta=imgaussfilt(beta,1*ppw/12);
   
@@ -96,13 +96,13 @@ for n=1:nlines
 
   cwd=pwd; addpath(cwd);
   outdir=['lesion' num2str(n)]; eval(['!mkdir -p ' outdir]); 
-  eval(['!cp fullwave2_try6_nln_attenuating ' outdir]);
+  eval(['!cp fullwave2_try6_nln_relaxing ' outdir]);
   cd(outdir)
-  launch_fullwave2_try6_nln_attenuating(c0,omega0,wX,wY,duration,p0,ppw,cfl,c,rho,A,beta,incoords,outcoords,icmat)
+  launch_fullwave2_try6_nln_relaxing4(c0,omega0,wX,wY,duration,p0,ppw,cfl,c,rho,A,beta,incoords,outcoords,icmat)
   if(n<nlines)
-   eval('!./fullwave2_try6_nln_attenuating &')
+   eval('!./fullwave2_try6_nln_relaxing &')
   elseif(n==nlines)
-  eval('!./fullwave2_try6_nln_attenuating')
+  eval('!./fullwave2_try6_nln_relaxing')
   end
  
  cd(cwd);
