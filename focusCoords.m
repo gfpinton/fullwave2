@@ -11,5 +11,5 @@ dd = dd-min(dd);
 
 icmat = zeros(size(coords,1),length(icvec));
 for i=1:size(coords,1)
-  icmat(i,dd(i)+1:end)  = icvec(1:end-dd(i));
+  icmat(i,ceil(dd(i))+1:end)  = icvec(1:end-ceil(dd(i)));
 end
